@@ -1,0 +1,21 @@
+name: Deploy to Surge
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Install Surge
+      run: npm install --global surge
+
+    - name: Deploy to Surge
+      run: |
+        surge --project ./ --domain blue-eyed-flame.surge.sh --token ${{ secrets.SURGE_TOKEN }}
